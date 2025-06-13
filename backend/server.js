@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
+const userRoute = require("./routes/userRoute")
+
 const app = express()
 
 const PORT = process.env.PORT || 5000
@@ -27,3 +29,5 @@ mongoose
 app.get("/", (req,res) => {
     res.send("Home page")
 })
+
+app.use("/api/users", userRoute)
