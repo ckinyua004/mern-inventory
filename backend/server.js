@@ -4,8 +4,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const path = require('path')
 
 const userRoute = require("./routes/userRoute");
+const productRoute = require("./routes/productRoute");
 const { errorHandler } = require("./middleWare/errorMiddleware");
 
 const app = express();
@@ -20,11 +22,14 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 
+app.use("/uploads", express.static(path.join(__dirname, 'uploads')))
+
 // Routes
 app.get("/", (req, res) => {
     res.send("Home page");
 });
 app.use("/api/users", userRoute);
+app.use("/api/products", productRoute);
 
 // Error Handler (last!)
 app.use(errorHandler);
